@@ -1,0 +1,106 @@
+<style lang="less">
+page {
+    height: 100%;
+}
+.page-body {
+    margin-top: 45rpx;
+}
+.btn-area {
+    padding: 0 15px;
+}
+.page-section {
+    padding: 32rpx 0;
+    background-color: #fff;
+    width: 90%;
+    margin: 200rpx auto 0;
+    border: 1px solid #D9D9D9;
+    border-radius: 5px;
+}
+</style>
+<template>
+<form bindsubmit="formSubmit" bindreset="formReset">
+  <view class="container">
+    <view class="page-section">
+      <view class="weui-cells__title">登录信息</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">帐号</view>
+          </view>
+          <view class="weui-cell__bd">
+            <view class="weui-cell weui-cell_input">
+              <input class="weui-input" name="account" placeholder="请输入登录帐号" />
+            </view>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">密码</view>
+          </view>
+          <view class="weui-cell__bd">
+            <view class="weui-cell weui-cell_input">
+              <input class="weui-input" name="password" type="password" placeholder="请输入登录密码" />
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="page-body">
+        <view class="btn-area">
+          <button formType="submit" type="primary" loading="{{loading}}">立即登录</button>
+        </view>
+      </view>
+    </view>
+    <foot></foot>
+  </view>
+</form>
+
+</view>
+</template>
+
+<script>
+import wepy from 'wepy'
+// 引入组件
+import Foot from '../components/foot'
+import {
+  service
+} from '../config.js'
+export default class Login extends wepy.page {
+  config = {
+    navigationBarTitleText: '登录'
+  }
+  components = {
+    foot: Foot
+  }
+
+  data = {}
+
+  computed = {}
+
+  methods = {
+    formSubmit(data) {
+      var md5 = require('../md5.js')
+      wepy.showLoading({
+        title: '正在登录',
+        mask: true
+      })
+      wepy.request({
+        url: service.loginSmall,
+        method: 'POST',
+        data: {
+          account: data.detail.value.account,
+          password: md5(data.detail.value.password + data.detail.value.account)
+        },
+        success: function(res) {
+          wepy.navigateTo({
+            url: 'order'
+          })
+        }
+      })
+    }
+  }
+
+  events = {}
+
+  onLoad() {}
+}
+</script>

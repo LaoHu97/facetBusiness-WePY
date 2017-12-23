@@ -1,0 +1,28 @@
+
+<form bindsubmit="formSubmit" bindreset="formReset">
+  <view class="container">
+    <view class="page-section">
+      <view class="weui-cells__title">消费金额</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">消费金额</view>
+          </view>
+          <view class="weui-cell__bd">
+            <view class="weui-cell weui-cell_input">
+              <input class="weui-input" name="name" type="digit" placeholder="请输入消费金额"/>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="page-body">
+        <view class="btn-area">
+          <button formType="submit" type="primary" loading="{{loading}}">立即下单</button>
+        </view>
+      </view>
+    </view>
+    
+<view class="foot">西安万鼎网络科技</view>
+
+  </view>
+</form>
