@@ -1,5 +1,8 @@
 <style lang="less">
-
+.btn-area {
+    margin-top: 200rpx;
+    padding: 0 15px;
+}
 </style>
 <template>
 <form bindsubmit="formSubmit" bindreset="formReset">
@@ -50,7 +53,15 @@ export default class Order extends wepy.page {
 
   methods = {
     formSubmit() {
-
+      wepy.showLoading({
+        title: '正在下单'
+      })
+      wepy.navigateTo({
+        url: 'camera',
+        success() {
+          wepy.hideLoading()
+        }
+      })
     }
   }
 

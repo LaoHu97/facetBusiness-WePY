@@ -88,7 +88,7 @@ export default class Login extends wepy.page {
         method: 'POST',
         data: {
           account: data.detail.value.account,
-          password: md5(data.detail.value.password + data.detail.value.account)
+          password: md5.hexMD5(data.detail.value.password + data.detail.value.account)
         },
         success: function(res) {
           wepy.navigateTo({

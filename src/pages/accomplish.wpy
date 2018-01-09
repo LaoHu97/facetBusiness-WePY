@@ -1,0 +1,60 @@
+<template>
+<view class="accomplish_view">
+  <view class="group">
+    <block>
+      <icon type="{{icon}}" size="120" />
+    </block>
+    <view class="text">{{message}}</view>
+  </view>
+</view>
+<foot></foot>
+</template>
+
+<script>
+import wepy from 'wepy'
+// import {
+//   service
+// } from '../config.js'
+import Foot from '../components/foot'
+export default class Accomplish extends wepy.page {
+  config = {
+    navigationBarTitleText: '认证结果'
+  }
+  components = {
+    foot: Foot
+  }
+
+  data = {
+    message: '',
+    icon: 'success'
+  }
+  methods = {
+
+  }
+
+  events = {}
+  onLoad(query) {
+    console.log(query)
+    this.message = query.message
+    if (query.status !== '0') {
+      this.icon = 'warn'
+    } else {
+      this.icon = 'success'
+    }
+  }
+  onShareAppMessage(res) {
+    return this.$parent.onShareAppMessage('您有一张会员卡待领取')
+  }
+}
+</script>
+
+<style lang="less">
+.group {
+    text-align: center;
+    margin-top: 200rpx;
+}
+.text {
+    margin-top: 50rpx;
+    font-size: 48rpx;
+}
+</style>
