@@ -1,9 +1,9 @@
 
 <view class="confirm_view">
-  <view>姓名：{{ confirm.name }}</view>
-  <view>电话：{{ confirm.phone }}</view>
-  <view>实付金额：{{ confirm.amount }}</view>
-  <view>优惠金额：{{ confirm.disAmt }}</view>
+  <view class="confirm_list">姓名：{{ confirm.name }}</view>
+  <view class="confirm_list">电话：{{ confirm.phone }}</view>
+  <view class="confirm_list">实付金额：{{ confirm.amount }}</view>
+  <view class="confirm_list">优惠金额：{{ confirm.disAmt }}</view>
   <view class="btn-confirm">
     <button type="primary" bindtap="submit">确认支付</button>
   </view>

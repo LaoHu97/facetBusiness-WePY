@@ -1,9 +1,9 @@
 <template>
 <view class="confirm_view">
-  <view>姓名：{{ confirm.name }}</view>
-  <view>电话：{{ confirm.phone }}</view>
-  <view>实付金额：{{ confirm.amount }}</view>
-  <view>优惠金额：{{ confirm.disAmt }}</view>
+  <view class="confirm_list">姓名：{{ confirm.name }}</view>
+  <view class="confirm_list">电话：{{ confirm.phone }}</view>
+  <view class="confirm_list">实付金额：{{ confirm.amount }}</view>
+  <view class="confirm_list">优惠金额：{{ confirm.disAmt }}</view>
   <view class="btn-confirm">
     <button type="primary" bindtap="submit">确认支付</button>
   </view>
@@ -19,7 +19,7 @@ import {
 import Foot from '../components/foot'
 export default class Confirmp extends wepy.page {
   config = {
-    navigationBarTitleText: '认证结果'
+    navigationBarTitleText: '确认支付'
   }
   components = {
     foot: Foot
@@ -43,8 +43,18 @@ export default class Confirmp extends wepy.page {
         },
         method: 'POST',
         success(res) {
-          console.log(res)
-          if (res.data.status === 200) {
+          if (res.data.status !== 200) {
+            wepy.showModal({
+              title: '提示',
+              showCancel: false,
+              content: res.data.message,
+              success: function(res) {
+                if (res.confirm) {
+                  console.log('用户点击确定')
+                }
+              }
+            })
+          } else {
             wepy.navigateTo({
               url: 'accomplish?status=200&message=支付成功'
             })
@@ -72,10 +82,13 @@ export default class Confirmp extends wepy.page {
 
 <style lang="less">
 .confirm_view {
-    padding: 50rpx;
     text-align: center;
 }
 .btn-confirm {
-    margin-top: 15px;
+    margin-top: 25px;
+    padding: 0 15px;
+}
+.confirm_list {
+    margin-top: 50rpx;
 }
 </style>

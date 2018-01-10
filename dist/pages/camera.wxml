@@ -11,7 +11,7 @@
 <view class="progress_view"  wx:else>
   <image mode="widthFix" src="{{src}}"> </image>
   <view>
-    <button type="primary" bindtap="uploadFile">上传</button>
+    <button type="primary" bindtap="uploadFile">确定</button>
   </view>
   <view class="re_takePhoto">
     <button bindtap="reTakePhoto">重拍</button>

@@ -54,7 +54,7 @@ export default class Order extends wepy.page {
   methods = {
     formSubmit(data) {
       if (!data.detail.value.amount) {
-        wepy.showModal({
+        return wepy.showModal({
           title: '提示',
           showCancel: false,
           content: '请先输入金额',
@@ -64,7 +64,6 @@ export default class Order extends wepy.page {
             }
           }
         })
-        return
       }
       wepy.showLoading({
         title: '正在下单'

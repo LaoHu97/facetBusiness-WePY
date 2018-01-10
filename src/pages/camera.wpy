@@ -11,7 +11,7 @@
 <view class="progress_view" wx:else>
   <image mode="widthFix" src="{{src}}"> </image>
   <view>
-    <button type="primary" bindtap="uploadFile">上传</button>
+    <button type="primary" bindtap="uploadFile">确定</button>
   </view>
   <view class="re_takePhoto">
     <button bindtap="reTakePhoto">重拍</button>
@@ -70,9 +70,8 @@ export default class Camera extends wepy.page {
             status,
             message
           } = JSON.parse(res.data)
-          console.log(status)
           if (status !== 200) {
-            wepy.showModal({
+            return wepy.showModal({
               title: '提示',
               content: message,
               showCancel: false,
@@ -83,7 +82,6 @@ export default class Camera extends wepy.page {
                 wepy.hideLoading()
               }
             })
-            return
           }
           wepy.navigateTo({
             url: 'confirm?amount=' + data.amount + '&disAmt=' + data.disAmt + '&transId=' + data.transId + '&name=' + data.name + '&phone=' + data.phone + '&bouns=' + data.bouns +

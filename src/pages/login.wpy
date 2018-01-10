@@ -66,7 +66,7 @@ import {
 } from '../config.js'
 export default class Login extends wepy.page {
   config = {
-    navigationBarTitleText: '登录'
+    navigationBarTitleText: '款台登录'
   }
   components = {
     foot: Foot
@@ -78,6 +78,18 @@ export default class Login extends wepy.page {
 
   methods = {
     formSubmit(data) {
+      if (!data.detail.value.password && !data.detail.value.account) {
+        return wepy.showModal({
+          title: '提示',
+          showCancel: false,
+          content: '请检查登录帐号或密码',
+          success: function(res) {
+            if (res.confirm) {
+              console.log('用户点击确定')
+            }
+          }
+        })
+      }
       var md5 = require('../md5.js')
       wepy.showLoading({
         title: '正在登录',
@@ -91,10 +103,23 @@ export default class Login extends wepy.page {
           password: md5.hexMD5(data.detail.value.password + data.detail.value.account)
         },
         success: function(res) {
-          wepy.navigateTo({
-            url: 'order'
-            // order
-          })
+          if (res.data.status !== 200) {
+            wepy.showModal({
+              title: '提示',
+              showCancel: false,
+              content: res.data.message,
+              success: function(res) {
+                if (res.confirm) {
+                  console.log('用户点击确定')
+                }
+              }
+            })
+          } else {
+            wepy.navigateTo({
+              url: 'order'
+            })
+          }
+          wepy.hideLoading()
         }
       })
     }
