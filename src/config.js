@@ -8,9 +8,11 @@ var host = 'http://test.weupay.com';
 
 export const service = {
     // 登录接口
-    loginSmall: `${host}/pay/wxSmaPro/loginSmall`,
+    loginSmall: `${host}/pay/loginSmall`,
     // 人脸认证
-    faceIdentifyByImageUrl: `${host}/pay/api/face/faceIdentifyByImageUrl`,
+    getPrepayFace: `${host}/pay/facePay/getPrepayFace`,
+    // 支付
+    faceConfirmPay: `${host}/pay/facePay/faceConfirmPay`,
     // 主域
     host
 }

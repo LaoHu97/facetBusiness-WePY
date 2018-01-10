@@ -93,6 +93,7 @@ export default class Login extends wepy.page {
         success: function(res) {
           wepy.navigateTo({
             url: 'order'
+            // order
           })
         }
       })
@@ -100,7 +101,9 @@ export default class Login extends wepy.page {
   }
 
   events = {}
-
+  onShareAppMessage(res) {
+    return this.$parent.onShareAppMessage('您有一张会员卡待领取')
+  }
   onLoad() {}
 }
 </script>

@@ -1,0 +1,81 @@
+<template>
+<view class="confirm_view">
+  <view>姓名：{{ confirm.name }}</view>
+  <view>电话：{{ confirm.phone }}</view>
+  <view>实付金额：{{ confirm.amount }}</view>
+  <view>优惠金额：{{ confirm.disAmt }}</view>
+  <view class="btn-confirm">
+    <button type="primary" bindtap="submit">确认支付</button>
+  </view>
+</view>
+<foot></foot>
+</template>
+
+<script>
+import wepy from 'wepy'
+import {
+  service
+} from '../config.js'
+import Foot from '../components/foot'
+export default class Confirmp extends wepy.page {
+  config = {
+    navigationBarTitleText: '认证结果'
+  }
+  components = {
+    foot: Foot
+  }
+
+  data = {
+    confirm: null
+  }
+  methods = {
+    submit() {
+      wepy.showLoading({
+        title: '支付中'
+      })
+      wepy.request({
+        url: service.faceConfirmPay,
+        header: {
+          'content-type': 'application/json'
+        },
+        data: {
+          transId: this.confirm.transId
+        },
+        method: 'POST',
+        success(res) {
+          console.log(res)
+          if (res.data.status === 200) {
+            wepy.navigateTo({
+              url: 'accomplish?status=200&message=支付成功'
+            })
+          }
+          wepy.hideLoading()
+        },
+        fail(res) {
+          console.log(res)
+          wepy.hideLoading()
+        }
+      })
+    }
+  }
+
+  events = {}
+  onLoad(query) {
+    this.confirm = query
+    this.$apply()
+  }
+  onShareAppMessage(res) {
+    return this.$parent.onShareAppMessage('您有一张会员卡待领取')
+  }
+}
+</script>
+
+<style lang="less">
+.confirm_view {
+    padding: 50rpx;
+    text-align: center;
+}
+.btn-confirm {
+    margin-top: 15px;
+}
+</style>

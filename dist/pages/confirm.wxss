@@ -1,0 +1,2 @@
+@import "./../components/foot.wxss";
+.confirm_view{padding:50rpx;text-align:center}.btn-confirm{margin-top:15px}

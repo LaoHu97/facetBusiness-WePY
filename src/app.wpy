@@ -23,7 +23,8 @@ export default class extends wepy.app {
       'pages/login',
       'pages/order',
       'pages/accomplish',
-      'pages/camera'
+      'pages/camera',
+      'pages/confirm'
     ],
     window: {
       'backgroundTextStyle': 'light',
@@ -48,7 +49,6 @@ export default class extends wepy.app {
         return p
       },
       success(p) {
-        console.log(p)
         console.log('API调用成功')
         return p
       },

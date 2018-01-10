@@ -16,7 +16,7 @@
           </view>
           <view class="weui-cell__bd">
             <view class="weui-cell weui-cell_input">
-              <input class="weui-input" name="name" type="digit" placeholder="请输入消费金额" />
+              <input class="weui-input" name="amount" type="digit" placeholder="请输入消费金额" />
             </view>
           </view>
         </view>
@@ -52,12 +52,25 @@ export default class Order extends wepy.page {
   computed = {}
 
   methods = {
-    formSubmit() {
+    formSubmit(data) {
+      if (!data.detail.value.amount) {
+        wepy.showModal({
+          title: '提示',
+          showCancel: false,
+          content: '请先输入金额',
+          success: function(res) {
+            if (res.confirm) {
+              console.log('用户点击确定')
+            }
+          }
+        })
+        return
+      }
       wepy.showLoading({
         title: '正在下单'
       })
       wepy.navigateTo({
-        url: 'camera',
+        url: 'camera?amount=' + data.detail.value.amount,
         success() {
           wepy.hideLoading()
         }
@@ -68,5 +81,8 @@ export default class Order extends wepy.page {
   events = {}
 
   onLoad() {}
+  onShareAppMessage(res) {
+    return this.$parent.onShareAppMessage('您有一张会员卡待领取')
+  }
 }
 </script>

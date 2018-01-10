@@ -32,10 +32,10 @@ export default class Camera extends wepy.page {
   components = {
     foot: Foot
   }
-
   data = {
     cameraView: true,
-    src: ''
+    src: '',
+    formData: ''
   }
   methods = {
     takePhoto() {
@@ -54,25 +54,40 @@ export default class Camera extends wepy.page {
       console.log(e.detail)
     },
     uploadFile() {
-      console.log(this.src)
       wepy.showLoading({
-        title: '正在上传'
+        title: '正在识别'
       })
       wepy.uploadFile({
-        url: service.faceIdentifyByImageUrl,
+        url: service.getPrepayFace,
         filePath: this.src,
         name: 'imageUrl',
         formData: {
-          'mid': '66'
+          'amount': this.formData.amount
         },
         success: function(res) {
           let {
+            data,
             status,
             message
           } = JSON.parse(res.data)
-          console.log(res)
+          console.log(status)
+          if (status !== 200) {
+            wepy.showModal({
+              title: '提示',
+              content: message,
+              showCancel: false,
+              success: function(res) {
+                if (res.confirm) {
+                  console.log('用户点击确定')
+                }
+                wepy.hideLoading()
+              }
+            })
+            return
+          }
           wepy.navigateTo({
-            url: 'accomplish?status=' + status + '&message=' + message,
+            url: 'confirm?amount=' + data.amount + '&disAmt=' + data.disAmt + '&transId=' + data.transId + '&name=' + data.name + '&phone=' + data.phone + '&bouns=' + data.bouns +
+              '&balans=' + data.balans,
             success() {
               wepy.hideLoading()
             }
@@ -87,6 +102,10 @@ export default class Camera extends wepy.page {
   }
   events = {}
   onShow() {}
+  onLoad(query) {
+    this.formData = query
+    this.$apply()
+  }
   onShareAppMessage(res) {
     return this.$parent.onShareAppMessage('您有一张会员卡待领取')
   }

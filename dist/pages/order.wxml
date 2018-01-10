@@ -10,7 +10,7 @@
           </view>
           <view class="weui-cell__bd">
             <view class="weui-cell weui-cell_input">
-              <input class="weui-input" name="name" type="digit" placeholder="请输入消费金额"/>
+              <input class="weui-input" name="amount" type="digit" placeholder="请输入消费金额"/>
             </view>
           </view>
         </view>
