@@ -129,6 +129,8 @@ export default class Login extends wepy.page {
   onShareAppMessage(res) {
     return this.$parent.onShareAppMessage('您有一张会员卡待领取')
   }
-  onLoad() {}
+  onLoad() {
+
+  }
 }
 </script>

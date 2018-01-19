@@ -1,9 +1,27 @@
 
 <view class="confirm_view">
-  <view class="confirm_list">姓名：{{ confirm.name }}</view>
-  <view class="confirm_list">电话：{{ confirm.phone }}</view>
-  <view class="confirm_list">实付金额：{{ confirm.amount }}</view>
-  <view class="confirm_list">优惠金额：{{ confirm.disAmt }}</view>
+  <view class="confirm_top">
+    <icon type="info" size="20" color="#fff"/>请确认支付信息无误</view>
+  <view class="confirm_list" style="margin-top:50rpx;">
+    <span class="confirm_title">姓 名：</span>
+    <span class="confirm_text">{{ confirm.name }}</span>
+  </view>
+  <view class="divers"/>
+  <view class="confirm_list">
+    <span class="confirm_title">电 话：</span>
+    <span class="confirm_text">{{ confirm.phone }}</span>
+  </view>
+  <view class="divers"/>
+  <view class="confirm_list">
+    <span class="confirm_title">实付金额：</span>
+    <span class="confirm_text">￥{{ confirm.amount }}</span>
+  </view>
+  <view class="divers"/>
+  <view class="confirm_list">
+    <span class="confirm_title">优惠金额：</span>
+    <span class="confirm_text">￥{{ confirm.disAmt }}</span>
+  </view>
+  <view class="divers"/>
   <view class="btn-confirm">
     <button type="primary" bindtap="submit">确认支付</button>
   </view>

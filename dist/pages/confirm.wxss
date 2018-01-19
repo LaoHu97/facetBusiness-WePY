@@ -1,2 +1,2 @@
 @import "./../components/foot.wxss";
-.confirm_view{text-align:center}.btn-confirm{margin-top:25px;padding:0 15px}.confirm_list{margin-top:50rpx}
+.confirm_view{text-align:left}.btn-confirm{margin-top:25px;padding:0 15px}.confirm_list{font-size:36rpx;font-weight:bolder;padding:0 100rpx;color:#999}.confirm_title{width:250rpx;display:inline-block}.confirm_text{color:#333}.divers{height:1px;background-color:#999;margin:25rpx 0}.confirm_top{background-color:#FFB710;height:30px;font-size:28rpx;line-height:30px;color:#fff;text-align:left;padding-left:60rpx}.confirm_top icon{height:30px;margin-top:5px;margin-right:5px}

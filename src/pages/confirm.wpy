@@ -1,9 +1,27 @@
 <template>
 <view class="confirm_view">
-  <view class="confirm_list">姓名：{{ confirm.name }}</view>
-  <view class="confirm_list">电话：{{ confirm.phone }}</view>
-  <view class="confirm_list">实付金额：{{ confirm.amount }}</view>
-  <view class="confirm_list">优惠金额：{{ confirm.disAmt }}</view>
+  <view class="confirm_top">
+    <icon type="info" size="20" color="#fff" />请确认支付信息无误</view>
+  <view class="confirm_list" style="margin-top:50rpx;">
+    <span class="confirm_title">姓 名：</span>
+    <span class="confirm_text">{{ confirm.name }}</span>
+  </view>
+  <view class="divers"></view>
+  <view class="confirm_list">
+    <span class="confirm_title">电 话：</span>
+    <span class="confirm_text">{{ confirm.phone }}</span>
+  </view>
+  <view class="divers"></view>
+  <view class="confirm_list">
+    <span class="confirm_title">实付金额：</span>
+    <span class="confirm_text">￥{{ confirm.amount }}</span>
+  </view>
+  <view class="divers"></view>
+  <view class="confirm_list">
+    <span class="confirm_title">优惠金额：</span>
+    <span class="confirm_text">￥{{ confirm.disAmt }}</span>
+  </view>
+  <view class="divers"></view>
   <view class="btn-confirm">
     <button type="primary" bindtap="submit">确认支付</button>
   </view>
@@ -72,6 +90,17 @@ export default class Confirmp extends wepy.page {
   events = {}
   onLoad(query) {
     this.confirm = query
+    this.confirm.name = this.confirm.name.replace(/.(?=.)/g, '*')
+
+    function plusXing(str, frontLen, endLen) {
+      var len = str.length - frontLen - endLen;
+      var xing = '';
+      for (var i = 0; i < len; i++) {
+        xing += '*';
+      }
+      return str.substring(0, frontLen) + xing + str.substring(str.length - endLen);
+    }
+    this.confirm.phone = plusXing(this.confirm.phone, 3, 2)
     this.$apply()
   }
   onShareAppMessage(res) {
@@ -82,13 +111,43 @@ export default class Confirmp extends wepy.page {
 
 <style lang="less">
 .confirm_view {
-    text-align: center;
+    text-align: left;
 }
 .btn-confirm {
     margin-top: 25px;
     padding: 0 15px;
 }
 .confirm_list {
-    margin-top: 50rpx;
+    font-size: 36rpx;
+    font-weight: bolder;
+    padding: 0 100rpx;
+    color: #999;
+}
+.confirm_title {
+    width: 250rpx;
+    display: inline-block;
+}
+
+.confirm_text {
+    color: #333;
+}
+.divers {
+    height: 1px;
+    background-color: #999;
+    margin: 25rpx 0;
+}
+.confirm_top {
+    background-color: #FFB710;
+    height: 30px;
+    font-size: 28rpx;
+    line-height: 30px;
+    color: #fff;
+    text-align: left;
+    padding-left: 60rpx;
+    icon {
+        height: 30px;
+        margin-top: 5px;
+        margin-right: 5px;
+    }
 }
 </style>
